@@ -14,11 +14,8 @@ class MemoController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
 
-        $em = $doctrine->getManager();
-        $repo = $em->getRepository(Memo::class);
+        $memos = $doctrine->getRepository(Memo::class)->findAll();
 
-        $memo = $repo->find(1);
-
-        return $this->render('memo/index.html.twig');
+        return $this->render('memo/index.html.twig', ['memos' => $memos]);
     }
 }
