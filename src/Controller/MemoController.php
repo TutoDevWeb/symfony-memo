@@ -13,7 +13,7 @@ class MemoController extends AbstractController
     public function index(MemoRepository $MemoRepository): Response
     {
 
-        $memos = $MemoRepository->findAll();
+        $memos = $MemoRepository->findNext();
 
         return $this->render('memo/index.html.twig', ['memos' => $memos]);
     }
