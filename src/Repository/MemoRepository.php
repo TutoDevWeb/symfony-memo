@@ -39,15 +39,28 @@ class MemoRepository extends ServiceEntityRepository
         }
     }
 
-    public function findNext(): array
+    /**
+     * Find all next memo 
+     */
+    public function findNextAndTagItDone(): array
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT m FROM App\Entity\Memo m'
+            'SELECT m FROM App\Entity\Memo m WHERE m.done = false ORDER BY m.id ASC'
         );
 
-        // returns an array of Product objects
-        return $query->getResult();
+        // Je récupère tous les résultats
+        $memos = $query->getResult();
+
+        // Si il y en a au moins un
+        if (count($memos) !== 0) {
+            // Je note le premier comme fait.
+            $memos[0]->setDone(true);
+            $entityManager->flush();
+        }
+
+        // Si il n'y a pas de résultats je retourne un tableau vide.
+        return $memos;
     }
 }
