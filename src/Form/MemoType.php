@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Memo;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,8 +16,7 @@ class MemoType extends AbstractType
             ->add('question')
             ->add('reponse')
             ->add('a_revoir')
-            ->add('done')
-        ;
+            ->add('faq', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
