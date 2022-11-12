@@ -18,7 +18,19 @@ class MemoController extends AbstractController
 
         if (count($memos) !== 0) {
             $form = $this->createForm(MemoType::class, $memos[0]);
-            return $this->renderForm('memo/index.html.twig', ['formMemo' => $form]);
-        }
+            return $this->renderForm(
+                'memo/index.html.twig',
+                [
+                    'formMemo' => $form,
+                    'endMemo' => false
+                ]
+            );
+        } else
+            return $this->render(
+                'memo/index.html.twig',
+                [
+                    'endMemo' => true
+                ]
+            );
     }
 }
