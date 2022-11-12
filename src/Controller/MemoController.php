@@ -15,6 +15,9 @@ class MemoController extends AbstractController
 
         $memos = $MemoRepository->findNextAndTagItDone();
 
-        return $this->render('memo/index.html.twig', ['memos' => $memos]);
+        if (count($memos) !== 0) {
+            $form = $this->createForm(TaskType::class, $memos[0]);
+            return $this->renderForm('memo/index.html.twig', ['formMemo' => $form]);
+        }
     }
 }
